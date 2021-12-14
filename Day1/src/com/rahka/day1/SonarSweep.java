@@ -1,4 +1,4 @@
-package com.rahka;
+package com.rahka.day1;
 
 import java.io.File;
 import java.io.FileNotFoundException;
