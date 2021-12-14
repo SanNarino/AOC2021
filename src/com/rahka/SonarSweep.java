@@ -3,6 +3,7 @@ package com.rahka;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class SonarSweep {
@@ -12,26 +13,60 @@ public class SonarSweep {
         File file = new File("E:\\Drive\\Personal\\Creativity\\Programming projects\\AOC input files\\sonar sweep input.txt");
         Scanner sc = new Scanner(file);
 
-        int previousDepth = Integer.parseInt(sc.nextLine());
-
-        System.out.println(previousDepth + " (N/A - no previous measurement)");
         int increase = 0;
-        int depth = 0;
+        int decrease = 0;
+        int sumIncrease = 0;
+        int sum = 0;
+        int previousSum = 0;
+
+        LinkedList<Integer> depthList = new LinkedList<>();
 
         while (sc.hasNextLine()) {
-            depth = Integer.parseInt(sc.nextLine());
-            if (depth > previousDepth) {
-                increase++;
-                System.out.println(depth + " (increased)");
-            } else if (depth < previousDepth) {
-                System.out.println(depth + " (decreased)");
+
+            if (depthList.size() < 3) {
+                depthList.add(Integer.parseInt(sc.nextLine()));
+
+                for (int depth : depthList) {
+                    sum += depth;
+                }
+
+                if (depthList.size() == 3)
+                    System.out.println(sum + " (N/A - no previous sum)");
+
+                previousSum = sum;
+                sum = 0;
+
             } else {
-                System.out.println(depth + " (no change)");
+
+                depthList.add(Integer.parseInt(sc.nextLine()));
+                depthList.remove();
+
+                for (int depth : depthList) {
+                    sum += depth;
+                }
+
+
+                if (sum > previousSum) {
+                    increase++;
+                    sumIncrease += (sum - previousSum);
+                    System.out.println(sum + " (increase)");
+                } else if (sum < previousSum){
+                    decrease++;
+                    System.out.println(sum + " (decrease)");
+                } else {
+                    System.out.println(sum + " (no change)");
+                }
+
+                previousSum = sum;
+                sum = 0;
             }
-            previousDepth = depth;
         }
 
-        System.out.print("Total number of an increase in measurement: " + increase);
+        System.out.println("Number of increase in depth: " + increase);
+        System.out.println("Number of decrease in depth: " + decrease);
+        System.out.println("Total increase in depth: " + sumIncrease);
+
     }
 }
+
 
