@@ -10,7 +10,7 @@ public class SonarSweep {
 
     public static void main(String[] args) throws FileNotFoundException {
 
-        File file = new File("E:\\Drive\\Personal\\Creativity\\Programming projects\\AOC input files\\sonar sweep input.txt");
+        File file = new File("E:\\Drive\\Personal\\Creativity\\Programming projects\\AOC\\Day1\\sonar sweep input.txt");
         Scanner sc = new Scanner(file);
 
         int increase = 0;
